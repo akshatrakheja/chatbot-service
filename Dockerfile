@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip && \
 COPY . /app
 
 # Expose the port Flask runs on
-EXPOSE 5000
+EXPOSE 5001
 
 # Command to run the app with Gunicorn
 CMD ["python", "app.py"]
