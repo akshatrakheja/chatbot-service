@@ -12,7 +12,6 @@ def create_app():
     app.register_blueprint(chatbot_bp, url_prefix="/chatbot")
     return app
 
-app = create_app()
-
 if __name__ == "__main__":
+    app = create_app()
     app.run(host="0.0.0.0", port=5001, debug=True)
