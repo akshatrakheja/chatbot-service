@@ -81,6 +81,7 @@ def home():
     return "Chatbot is running!"
 @chatbot_bp.route("/chat", methods=["POST"])
 def chat():
+    print(user_context)
     user_message = request.json.get("message")
     if user_message.lower() == "reset":
         user_context.clear()  # Allow user to reset the entire flow
