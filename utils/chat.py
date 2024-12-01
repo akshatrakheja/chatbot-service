@@ -27,9 +27,6 @@ def search_providers(token, specialty, insurance, street, city, state, zip_code,
 
 def search_provider(token, provider_id) :
     headers = {"Authorization": f"Bearer {token}"}
-    payload = {
-        "id": provider_id
-    }
     response = requests.get(f"{BACKEND_URL}/search-provider?id={provider_id}", headers=headers)
     if response.status_code == 200:
         return response.json()

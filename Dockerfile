@@ -22,5 +22,4 @@ COPY . /app
 # Expose the port Flask runs on
 EXPOSE 5001
 
-# Command to run the app with Gunicorn
 CMD ["python", "app.py"]

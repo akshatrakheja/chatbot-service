@@ -98,10 +98,9 @@ def chat():
         return jsonify({"message": "Please provide your password."})
     elif not user_context.get("password"):
         user_context["password"] = user_message
-        # masked_password = "●" * len(user_message)  # Replace characters with black bubbles
         token = login(user_context["email"], user_context["password"])
         if not token:
-            user_context.clear()
+            # user_context.clear()
             return jsonify({"message": "Invalid email or password. Please try again."})
         user_context["token"] = token
         return jsonify({
