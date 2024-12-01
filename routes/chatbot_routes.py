@@ -82,6 +82,9 @@ def home():
 @chatbot_bp.route("/chat", methods=["POST"])
 def chat():
     user_message = request.json.get("message")
+    if user_message.lower() == "reset":
+        user_context.clear()  # Allow user to reset the entire flow
+        return jsonify({"message": "Conversation reset. Please start over by entering your email."})
     if not user_context.get("email"):
         user_context["email"] = user_message
         return jsonify({"message": "Please provide your password."})
@@ -115,10 +118,11 @@ def chat():
             success = cancel_user_appointment(
                 user_context["token"], selected_appointment["id"]
             )
-            user_context.clear()
             if success:
+                user_context.clear()
                 return jsonify({"message": "Appointment successfully canceled."})
             else:
+                user_context.clear()
                 return jsonify({"message": "Failed to cancel the appointment. Try again later."})
         except (IndexError, ValueError):
             return jsonify({"message": "Invalid selection. Please try again."})
@@ -166,6 +170,7 @@ def chat():
                     "message": f"Unfortunately, no schedule could be found for {selected['properties']['Provider First Name']} {selected['properties']['Provider Last Name']}."
                 })
         except (IndexError, ValueError):
+            user_context.clear()
             return jsonify({"message": "Invalid selection. Please try again."})
     elif user_context.get("flow") == "book" and not user_context.get("appointment_datetime"):
         try:
@@ -193,4 +198,5 @@ def chat():
             user_context.clear()
             return jsonify({"message": "Failed to book the appointment. Try again later."})
     else:
+        user_context.clear() 
         return jsonify({"message": "Thank you! Your process is complete."})
