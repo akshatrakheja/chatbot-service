@@ -76,7 +76,9 @@ def format_schedule(availability):
         for i, slot in enumerate(available_slots[:7])
     ]
     return "Available times:\n" + "\n".join(formatted_slots)
-
+@chatbot_bp.route("/", methods=["GET"])
+def home():
+    return "Chatbot is running!"
 @chatbot_bp.route("/chat", methods=["POST"])
 def chat():
     user_message = request.json.get("message")
