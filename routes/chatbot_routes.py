@@ -9,6 +9,11 @@ from utils.chat import (
     fetch_user_appointments,
     cancel_user_appointment
 )
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 chatbot_bp = Blueprint("chatbot_bp", __name__)
 
@@ -81,7 +86,7 @@ def home():
     return "Chatbot is running!"
 @chatbot_bp.route("/chat", methods=["POST"])
 def chat():
-    print(user_context)
+    logger.debug(f"User context after processing: {user_context}")
     user_message = request.json.get("message")
     if user_message.lower() == "reset":
         user_context.clear()  # Allow user to reset the entire flow
